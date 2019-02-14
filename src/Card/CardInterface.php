@@ -21,6 +21,20 @@ interface CardInterface
     /**
      * Returns an array of every line being hold by this card.
      *
+     * ## Example Output:
+     *
+     * For USA cards,
+     *
+     * ```php
+     * [
+     *   'B' => [13, 15, 14, 1, 2],
+     *   'I' => [24, 30, 16, 20, 18],
+     *   'N' => [42, 37, null, 43, 39],
+     *   'G' => [57, 53, 50, 56, 48],
+     *   'O' => [71, 67, 72, 62, 69],
+     * ]
+     * ```
+     *
      * @return array Array of lines indexed by line's index
      */
     public function getLines(): array;
