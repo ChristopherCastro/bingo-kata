@@ -7,12 +7,21 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Bingo\Card;
+namespace Test\Card\Generator;
 
-/**
- * Bingo cards producer.
- */
-class CardFactory
+use PHPUnit\Framework\TestCase;
+
+class CardUsaFactoryTest extends TestCase
 {
 
+    /**
+     * ## Scenario:
+     *
+     * - Given I have a Bingo card generator
+     * - When I generate a Bingo card
+     * - Then -> CardUsaTest::*
+     */
+    public function testBuildValidCard()
+    {
+    }
 }

@@ -7,22 +7,20 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Test\Card;
+namespace Bingo\Card\Generator;
 
-use Bingo\Card\CardFactory;
-use PHPUnit\Framework\TestCase;
+use Bingo\Card\CardInterface;
 
-class CardFactoryTest extends TestCase
+/**
+ * Bingo cards generator. Every card generator must implement this interface.
+ */
+interface CardFactoryInterface
 {
 
     /**
-     * ## Scenario:
+     * Creates a bingo card.
      *
-     * - Given I have a Bingo card generator
-     * - When I generate a Bingo card
-     * - Then -> CardUsaTest::*
+     * @return \Bingo\Card\CardInterface New card instance
      */
-    public function testBuildValidCard()
-    {
-    }
+    public function build(): CardInterface;
 }
