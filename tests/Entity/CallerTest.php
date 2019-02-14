@@ -58,7 +58,7 @@ class CallerTest extends TestCase
         }
 
         // TODO: performance, avoid sort and try array_diff?
-        sort($called);
+        sort($calledNumbers);
         $this->assertEquals($fullRange, $calledNumbers);
     }
 
