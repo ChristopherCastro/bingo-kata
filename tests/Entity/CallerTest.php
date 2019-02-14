@@ -28,6 +28,7 @@ class CallerTest extends TestCase
         $caller = new Caller();
         $number = $caller->call();
 
+        // TODO: study, unreliable as depends on random output
         $this->assertThat(
             $number,
             $this->logicalAnd(
