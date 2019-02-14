@@ -9,13 +9,7 @@
  */
 namespace Bingo\Entity;
 
-/**
- * Represents a bingo caller.
- */
-interface CallerInterface
+class Caller implements CallerInterface
 {
-    /**
-     * Calls a randomly selected ball number.
-     */
-    public function call(): int;
+
 }

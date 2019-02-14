@@ -7,15 +7,12 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Bingo\Entity;
+namespace Entity;
 
-/**
- * Represents a bingo caller.
- */
-interface CallerInterface
+use Bingo\Entity\Caller;
+use PHPUnit\Framework\TestCase;
+
+class CallerTest extends TestCase
 {
-    /**
-     * Calls a randomly selected ball number.
-     */
-    public function call(): int;
+
 }
