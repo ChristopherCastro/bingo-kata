@@ -19,17 +19,17 @@ namespace Bingo\Card;
 interface CardInterface
 {
     /**
-     * Returns values for an specific line.
+     * Returns values for a specific line.
      *
-     * @param mixed Line index
+     * @param mixed $index Line index
      * @return array[int|null] Null indicates an empty cell
      */
-    public function getLine($column): array;
+    public function getLine($index): array;
 
     /**
-     * Returns card's values for an specific line.
+     * Returns values of a specific line.
      *
-     * @param mixed Line index to set
+     * @param mixed $index Line index to set
      * @param array[int|null] Line values to set, null indicates an empty cell
      * @return void
      */
