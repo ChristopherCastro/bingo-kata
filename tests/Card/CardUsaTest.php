@@ -19,11 +19,11 @@ class CardUsaTest extends TestCase
      * ## Scenario:
      *
      * - When I generate a Bingo card
-     * - Then the generated card has 25 unique spaces
-     *  - And column `$column` only contains numbers between `$lowerBound` and `$upperBound` inclusive
-     *  - And the generated card has 1 FREE space in the middle
+     * - [Then the generated card has 25 unique spaces]
+     *   - And column `$column` only contains numbers between `$lowerBound` and `$upperBound` inclusive
+     *   - And the generated card has 1 FREE space in the middle
      */
-    public function testValidCardStructure()
+    public function testUniqueSpaces()
     {
         $card = new CardUsa();
         $lines = $card->getLines();
@@ -41,5 +41,49 @@ class CardUsaTest extends TestCase
                 $this->countOf(25)
             )
         );
+    }
+
+    /**
+     * ## Scenario:
+     *
+     * - When I generate a Bingo card
+     * - Then the generated card has 25 unique spaces
+     *   - [And column `$column` only contains numbers between `$lowerBound` and `$upperBound` inclusive]
+     *   - And the generated card has 1 FREE space in the middle
+     */
+    public function testColumnsWithinRage()
+    {
+        $card = new CardUsa();
+        $cases = [
+            'B' => [1, 15], // index => lower, upper
+            'I' => [16, 30],
+            'N' => [31, 45],
+            'G' => [46, 60],
+            'O' => [61, 75],
+        ];
+
+        foreach ($cases as $lineIndex => $bounds) {
+            $line = $card->getLine($lineIndex);
+            $line = array_filter($line); // remove empty cells
+            $validValues = range($bounds[0], $bounds[1]);
+            $diff = array_diff($line, $validValues);
+
+            $this->assertEmpty(
+                $diff,
+                sprintf('Line `%s` has some values out of range: [%s]', $lineIndex, implode(',', $diff))
+            );
+        }
+    }
+
+    /**
+     * ## Scenario:
+     *
+     * - When I generate a Bingo card
+     * - Then the generated card has 25 unique spaces
+     *   - And column `$column` only contains numbers between `$lowerBound` and `$upperBound` inclusive
+     *   - [And the generated card has 1 FREE space in the middle]
+     */
+    public function testFreeCell()
+    {
     }
 }
