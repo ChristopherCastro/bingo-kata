@@ -11,8 +11,27 @@ namespace Bingo\Card;
 
 /**
  * Represents a bingo card.
+ *
+ * A card is represented as a collection of "lines" (sets of integers and/or nils).
+ * This "line" representation allows to handle sets of cells depending on the type of game
+ * being played. For instance, USA uses "column lines", UK uses "row lines".
  */
 interface CardInterface
 {
+    /**
+     * Returns values for an specific line.
+     *
+     * @param mixed Line index
+     * @return array[int|null] Null indicates an empty cell
+     */
+    public function getLine($column): array;
 
+    /**
+     * Returns card's values for an specific line.
+     *
+     * @param mixed Line index to set
+     * @param array[int|null] Line values to set, null indicates an empty cell
+     * @return void
+     */
+    public function setLine($index, array $values = []): void;
 }
