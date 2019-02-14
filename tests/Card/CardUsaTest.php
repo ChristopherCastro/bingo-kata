@@ -9,9 +9,22 @@
  */
 namespace Card;
 
+use Bingo\Card\CardUsa;
 use PHPUnit\Framework\TestCase;
 
 class CardUsaTest extends TestCase
 {
 
+    /**
+     * ## Scenario:
+     *
+     * - When I generate a Bingo card
+     * - Then the generated card has 25 unique spaces
+     *  - And column `$column` only contains numbers between `$lowerBound` and `$upperBound` inclusive
+     *  - And the generated card has 1 FREE space in the middle
+     */
+    public function testValidCardStructure()
+    {
+        $card = new CardUsa();
+    }
 }

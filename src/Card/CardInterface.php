@@ -19,6 +19,13 @@ namespace Bingo\Card;
 interface CardInterface
 {
     /**
+     * Returns an array of every line being hold by this card.
+     *
+     * @return array Array of lines indexed by line's index
+     */
+    public function getLines(): array;
+
+    /**
      * Returns values for a specific line.
      *
      * @param mixed $index Line index

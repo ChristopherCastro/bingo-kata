@@ -16,6 +16,11 @@ class CardUsa implements CardInterface
     {
     }
 
+    public function getLines(): array
+    {
+        // TODO: Implement getLines() method.
+    }
+
     public function getLine($index): array
     {
         // TODO: Implement getLine() method.
