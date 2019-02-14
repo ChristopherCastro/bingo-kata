@@ -10,6 +10,7 @@
 namespace Bingo\Card\Generator;
 
 use Bingo\Card\CardInterface;
+use Bingo\Card\CardUsa;
 
 class CardUsaFactory implements CardFactoryInterface
 {
@@ -19,5 +20,6 @@ class CardUsaFactory implements CardFactoryInterface
      */
     public function build(): CardInterface
     {
+        return new CardUsa();
     }
 }

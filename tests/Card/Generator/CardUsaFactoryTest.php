@@ -9,6 +9,8 @@
  */
 namespace Test\Card\Generator;
 
+use Bingo\Card\CardUsa;
+use Bingo\Card\Generator\CardUsaFactory;
 use PHPUnit\Framework\TestCase;
 
 class CardUsaFactoryTest extends TestCase
@@ -19,9 +21,12 @@ class CardUsaFactoryTest extends TestCase
      *
      * - Given I have a Bingo card generator
      * - When I generate a Bingo card
-     * - Then -> CardUsaTest::*
+     * - Then -> \Test\Card\CardUsaTest::*
      */
     public function testBuildValidCard()
     {
+        $factory = new CardUsaFactory();
+
+        $this->assertInstanceOf(CardUsa::class, $factory->build());
     }
 }
