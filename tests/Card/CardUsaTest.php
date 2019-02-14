@@ -83,7 +83,24 @@ class CardUsaTest extends TestCase
      *   - And column `$column` only contains numbers between `$lowerBound` and `$upperBound` inclusive
      *   - [And the generated card has 1 FREE space in the middle]
      */
-    public function testFreeCell()
+    public function testFreeCellInTheMiddle()
     {
+        $card = new CardUsa();
+        $lines = $card->getLines();
+        $middleLine = 'N';
+        $middleCell = 2;
+
+        foreach ($lines as $lineIndex => $cells) {
+            foreach ($cells as $cellIndex => $cell) {
+                if ($cell === null &&
+                    $lineIndex !== $middleCell &&
+                    $cellIndex !== $middleCell
+                ) {
+                    $this->fail(sprintf('Cell [%s, %d] is not allowed to be empty', $lineIndex, $cellIndex));
+                }
+            }
+        }
+
+        $this->assertEmpty($lines[$middleLine][$middleCell]);
     }
 }
