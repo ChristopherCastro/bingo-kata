@@ -7,9 +7,7 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Card;
-
-use Bingo\Card\CardInterface;
+namespace Bingo\Card;
 
 class CardUsa implements CardInterface
 {
