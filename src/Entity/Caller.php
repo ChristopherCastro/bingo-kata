@@ -13,10 +13,26 @@ class Caller implements CallerInterface
 {
 
     /**
+     * Available numbers to call.
+     *
+     * @var array
+     */
+    protected $numbers = [];
+
+    /**
+     * Caller constructor.
+     */
+    public function __construct()
+    {
+        $this->numbers = range(1, 75);
+        shuffle($this->numbers);
+    }
+
+    /**
      * @inheritdoc
      */
     public function call(): int
     {
-        return mt_rand(1, 75);
+        return array_pop($this->numbers);
     }
 }

@@ -36,4 +36,28 @@ class CallerTest extends TestCase
             )
         );
     }
+
+    /**
+     * ## Scenario:
+     *
+     * - Given I have a Bingo caller
+     * - When I call a number 75 times
+     * - Then all numbers between 1 and 75 are present AND no number has been called more than once
+     *
+     * @return void
+     */
+    public function testCallFullRangeNoRepetition()
+    {
+        $caller = new Caller();
+        $fullRange = range(1, 75);
+        $calledNumbers = [];
+
+        for ($i = 1; $i <= 75; $i++) {
+            $calledNumbers[] = $caller->call();
+        }
+
+        // TODO: performance, avoid sort and try array_diff?
+        sort($called);
+        $this->assertEquals($fullRange, $calledNumbers);
+    }
 }
