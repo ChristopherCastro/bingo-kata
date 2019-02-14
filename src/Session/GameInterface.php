@@ -7,12 +7,12 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Bingo;
+namespace Bingo\Session;
 
 /**
- * Represents a bingo caller.
+ * Represents a particular bingo session.
  */
-interface CallerInterface
+interface GameInterface
 {
 
 }

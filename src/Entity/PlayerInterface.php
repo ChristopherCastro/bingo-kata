@@ -7,12 +7,12 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Bingo;
+namespace Bingo\Entity;
 
 /**
- * Represents a bingo card.
+ * Represents a single player able to participate in a bingo game session.
  */
-interface CardInterface
+interface PlayerInterface
 {
 
 }
