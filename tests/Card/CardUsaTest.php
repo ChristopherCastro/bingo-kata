@@ -26,5 +26,20 @@ class CardUsaTest extends TestCase
     public function testValidCardStructure()
     {
         $card = new CardUsa();
+        $lines = $card->getLines();
+        $numbers = [];
+
+        foreach ($lines as $index => $cells) {
+            $numbers = array_merge($numbers, $cells);
+        }
+
+        // 25 unique spaces
+        $this->assertThat(
+            $numbers,
+            $this->logicalAnd(
+                $this->equalTo(array_unique($numbers)),
+                $this->countOf(25)
+            )
+        );
     }
 }

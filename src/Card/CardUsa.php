@@ -9,25 +9,96 @@
  */
 namespace Bingo\Card;
 
+/**
+ * Represents a card for playing US-bingo.
+ */
 class CardUsa implements CardInterface
 {
 
+    /**
+     * Lines collection.
+     *
+     * @var array
+     */
+    protected $lines = [];
+
+    /**
+     * Cells per line.
+     *
+     * @var int
+     */
+    protected static $lineLength = 5;
+
+    /**
+     * Lines definition rules when building a new card.
+     *
+     * @var array
+     * @see self::randomLine()
+     */
+    protected static $linesDefinition = [
+        'B' => ['lowerBound' => 1, 'upperBound' => 15, 'empty' => false],
+        'I' => ['lowerBound' => 16, 'upperBound' => 30, 'empty' => false],
+        'N' => ['lowerBound' => 31, 'upperBound' => 45, 'empty' => 2],
+        'G' => ['lowerBound' => 46, 'upperBound' => 60, 'empty' => false],
+        'O' => ['lowerBound' => 61, 'upperBound' => 75, 'empty' => false],
+    ];
+
+    /**
+     * Constructs a random card.
+     */
     public function __construct()
     {
+        foreach (static::$linesDefinition as $index => $rule) {
+            $this->setLine(
+                $index,
+                $this->randomLine($rule['lowerBound'], $rule['upperBound'], $rule['empty'])
+            );
+        }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLines(): array
     {
-        // TODO: Implement getLines() method.
+        return $this->lines;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLine($index): array
     {
-        // TODO: Implement getLine() method.
+        return $this->lines[$index];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setLine($index, array $values = []): void
     {
-        // TODO: Implement setLine() method.
+        $this->lines[$index] = $values;
+    }
+
+    /**
+     * Returns a randomly generated line.
+     *
+     * @param int $lowerBound Lowest possible random value
+     * @param int $upperBound Highest possible random value
+     * @param bool|int $empty An integer value indicates which cell (index) should be marked as empty,
+     *  boolean false indicates there are no empty cells
+     * @return array[int|null]
+     */
+    protected function randomLine(int $lowerBound, int $upperBound, $empty): array
+    {
+        $fullRange = range($lowerBound, $upperBound);
+        shuffle($fullRange);
+        $line = array_slice($fullRange, 0, static::$lineLength);
+
+        if (is_int($empty) && array_key_exists($empty, $line)) {
+            $line[$empty] = null;
+        }
+
+        return $line;
     }
 }
