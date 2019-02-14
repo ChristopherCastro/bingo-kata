@@ -14,5 +14,26 @@ use PHPUnit\Framework\TestCase;
 
 class CallerTest extends TestCase
 {
+    /**
+     * ## Scenario:
+     *
+     * - Given I have a Bingo caller
+     * - When I call a number
+     * - Then the number is between 1 and 75 inclusive
+     *
+     * @return void
+     */
+    public function testCallWithinValidRange()
+    {
+        $caller = new Caller();
+        $number = $caller->call();
 
+        $this->assertThat(
+            $number,
+            $this->logicalAnd(
+                $this->greaterThanOrEqual(1),
+                $this->lessThanOrEqual(75)
+            )
+        );
+    }
 }

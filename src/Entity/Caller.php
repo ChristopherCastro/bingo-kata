@@ -12,4 +12,11 @@ namespace Bingo\Entity;
 class Caller implements CallerInterface
 {
 
+    /**
+     * @inheritdoc
+     */
+    public function call(): int
+    {
+        return mt_rand(1, 75);
+    }
 }
