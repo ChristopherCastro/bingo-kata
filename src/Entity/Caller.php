@@ -9,6 +9,8 @@
  */
 namespace Bingo\Entity;
 
+use Bingo\Entity\Error\NoMoreNumbersException;
+
 class Caller implements CallerInterface
 {
 
@@ -33,6 +35,12 @@ class Caller implements CallerInterface
      */
     public function call(): int
     {
-        return array_pop($this->numbers);
+        $number = array_pop($this->numbers);
+
+        if ($number === null) {
+            throw new NoMoreNumbersException('No more numbers available to call.');
+        }
+
+        return $number;
     }
 }

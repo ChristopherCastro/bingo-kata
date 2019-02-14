@@ -60,4 +60,16 @@ class CallerTest extends TestCase
         sort($called);
         $this->assertEquals($fullRange, $calledNumbers);
     }
+
+    /**
+     * @expectedException \Bingo\Entity\Error\NoMoreNumbersException
+     */
+    public function testCallOutOfNumbers()
+    {
+        $caller = new Caller();
+
+        for ($i = 1; $i <= 76; $i++) {
+            $caller->call();
+        }
+    }
 }

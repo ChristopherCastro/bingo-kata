@@ -7,19 +7,12 @@
  * @author   Christopher Castro <chris@quickapps.es>
  * @license  http://opensource.org/licenses/gpl-3.0.html GPL-3.0 License
  */
-namespace Bingo\Entity;
-
-use Bingo\Entity\Error\NoMoreNumbersException;
+namespace Bingo\Entity\Error;
 
 /**
- * Represents a bingo caller.
+ * When no more numbers are available to call.
  */
-interface CallerInterface
+class NoMoreNumbersException extends \Exception
 {
-    /**
-     * Calls a randomly selected ball number.
-     *
-     * @throws \Bingo\Entity\Error\NoMoreNumbersException
-     */
-    public function call(): int;
+
 }
