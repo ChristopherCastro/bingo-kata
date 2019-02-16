@@ -10,23 +10,18 @@
 namespace Bingo\Entity;
 
 use Bingo\Card\CardInterface;
-use Bingo\Event\ListenerInterface;
+use Bingo\Event\EmitterAwareTrait;
 
 class Player implements PlayerInterface
 {
+    use EmitterAwareTrait;
+
     /**
      * Player's card.
      *
      * @var \Bingo\Card\CardInterface
      */
     protected $card;
-
-    /**
-     * List of listeners attached to this class.
-     *
-     * @var array[\Bingo\Event\ListenerInterface]
-     */
-    protected $listeners;
 
     /**
      * {@inheritdoc}
@@ -42,32 +37,6 @@ class Player implements PlayerInterface
     public function setCard(CardInterface $card): void
     {
         $this->card = $card;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function emit(string $event, array $data = []): void
-    {
-        foreach ($this->listeners as $listener) {
-            $implementedEvents = $listener->listeners();
-
-            if (isset($implementedEvents[$event]) &&
-                method_exists($listener, $implementedEvents[$event])
-            ) {
-                $method = $implementedEvents[$event];
-                $listener->{$method}($data);
-            }
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function attachListener(ListenerInterface $listener): void
-    {
-        $id = spl_object_id($listener);
-        $this->listeners[$id] = $listener;
     }
 
     /**
