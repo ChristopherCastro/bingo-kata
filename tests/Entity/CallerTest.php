@@ -26,7 +26,13 @@ class CallerTest extends TestCase
     public function testCallWithinValidRange()
     {
         $caller = new Caller();
-        $number = $caller->call();
+        $number = false;
+
+        try {
+            $number = $caller->call();
+        } catch (\Exception $ex) {
+            // catch
+        }
 
         // TODO: study, unreliable as depends on random output
         $this->assertThat(
@@ -54,7 +60,11 @@ class CallerTest extends TestCase
         $calledNumbers = [];
 
         for ($i = 1; $i <= 75; $i++) {
-            $calledNumbers[] = $caller->call();
+            try {
+                $calledNumbers[] = $caller->call();
+            } catch (\Exception $ex) {
+                // catch
+            }
         }
 
         // TODO: performance, avoid sort and try array_diff?
@@ -72,5 +82,35 @@ class CallerTest extends TestCase
         for ($i = 1; $i <= 76; $i++) {
             $caller->call();
         }
+    }
+
+    public function testCalledIsEmptyAtStart()
+    {
+        $caller = new Caller();
+        $called = $caller->called();
+
+        $this->assertEmpty($called);
+    }
+
+    /**
+     * @depends testCallWithinValidRange
+     * @depends testCallFullRangeNoRepetition
+     * @depends testCallOutOfNumbers
+     */
+    public function testCalledConsistency()
+    {
+        $caller = new Caller();
+        $max = 4;
+        $called = [];
+
+        for ($i = 0; $i < $max; $i++) {
+            try {
+                $called[] = $caller->call();
+            } catch (\Exception $ex) {
+                // catch
+            }
+        }
+
+        $this->assertEquals($called, $caller->called());
     }
 }

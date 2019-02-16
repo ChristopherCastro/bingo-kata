@@ -17,9 +17,16 @@ class Caller implements CallerInterface
     /**
      * Available numbers to call.
      *
-     * @var array
+     * @var array[int]
      */
     protected $numbers = [];
+
+    /**
+     * Called numbers until now.
+     *
+     * @var array[int]
+     */
+    protected $called = [];
 
     /**
      * Caller constructor.
@@ -31,7 +38,7 @@ class Caller implements CallerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function call(): int
     {
@@ -41,6 +48,16 @@ class Caller implements CallerInterface
             throw new NoMoreNumbersException('No more numbers available to call.');
         }
 
+        $this->called[] = $number;
+
         return $number;
+    }
+
+    /**∫
+     * {@inheritdoc}
+     */
+    public function called(): array
+    {
+        return $this->called;
     }
 }
