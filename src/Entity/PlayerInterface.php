@@ -9,10 +9,14 @@
  */
 namespace Bingo\Entity;
 
+use Bingo\Card\CardInterface;
+use Bingo\Event\EmitterInterface;
+use Bingo\Event\ListenerInterface;
+
 /**
  * Represents a single player able to participate in a bingo game session.
  */
-interface PlayerInterface
+interface PlayerInterface extends ListenerInterface, EmitterInterface
 {
 
 }

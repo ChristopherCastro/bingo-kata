@@ -9,10 +9,13 @@
  */
 namespace Bingo\Session;
 
+use Bingo\Event\EmitterInterface;
+use Bingo\Event\ListenerInterface;
+
 /**
  * Represents a particular bingo session.
  */
-interface GameInterface
+interface GameInterface extends ListenerInterface, EmitterInterface
 {
 
 }
