@@ -9,10 +9,18 @@
  */
 namespace Test\Entity;
 
+use Bingo\Card\CardInterface;
 use Bingo\Entity\Player;
 use PHPUnit\Framework\TestCase;
 
 class PlayerTest extends TestCase
 {
-    
+    public function testCard()
+    {
+        $player = new Player();
+        $card = $this->createMock(CardInterface::class);
+        $player->setCard($card);
+
+        $this->assertSame($card, $player->getCard());
+    }
 }

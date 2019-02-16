@@ -18,5 +18,17 @@ use Bingo\Event\ListenerInterface;
  */
 interface PlayerInterface extends ListenerInterface, EmitterInterface
 {
+    /**
+     * Gets player's bingo card.
+     *
+     * @return \Bingo\Card\CardInterface
+     */
+    public function getCard(): CardInterface;
 
+    /**
+     * Sets player's bingo card.
+     *
+     * @param \Bingo\Card\CardInterface $card
+     */
+    public function setCard(CardInterface $card): void;
 }
