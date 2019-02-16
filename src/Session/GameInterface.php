@@ -9,6 +9,8 @@
  */
 namespace Bingo\Session;
 
+use Bingo\Card\CardInterface;
+use Bingo\Entity\CallerInterface;
 use Bingo\Event\EmitterInterface;
 use Bingo\Event\ListenerInterface;
 
@@ -17,5 +19,12 @@ use Bingo\Event\ListenerInterface;
  */
 interface GameInterface extends ListenerInterface, EmitterInterface
 {
-
+    /**
+     * Whether ALL numbers in the given card were called by $caller.
+     *
+     * @param \Bingo\Card\CardInterface $card The card to check
+     * @param \Bingo\Entity\CallerInterface $caller Caller instance being use in this game session
+     * @return bool True if ALL numbers in $card were called, False otherwise
+     */
+    public function check(CardInterface $card, CallerInterface $caller): bool;
 }

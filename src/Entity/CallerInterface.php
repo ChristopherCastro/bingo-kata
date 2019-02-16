@@ -22,4 +22,11 @@ interface CallerInterface
      * @throws \Bingo\Entity\Error\NoMoreNumbersException
      */
     public function call(): int;
+
+    /**
+     * Retrieves a list of every number called until now.
+     *
+     * @return array[int]
+     */
+    public function called(): array;
 }

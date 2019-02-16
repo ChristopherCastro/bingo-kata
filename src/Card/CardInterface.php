@@ -55,4 +55,11 @@ interface CardInterface
      * @return void
      */
     public function setLine($index, array $values = []): void;
+
+    /**
+     * Retrieves a list of every number present in this card.
+     *
+     * @return array[int]
+     */
+    public function numbers(): array;
 }
