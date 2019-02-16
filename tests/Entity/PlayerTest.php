@@ -11,6 +11,7 @@ namespace Test\Entity;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\Player;
+use Bingo\Event\ListenerInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlayerTest extends TestCase
@@ -22,5 +23,17 @@ class PlayerTest extends TestCase
         $player->setCard($card);
 
         $this->assertSame($card, $player->getCard());
+    }
+
+    public function testEmit()
+    {
+        $player = new Player();
+        $listener = $this->createMock(ListenerInterface::class);
+        $listener->expects($this->atLeastOnce())
+            ->method('listeners')
+            ->will($this->returnValue(['testEvent' => 'testEventHandler']));
+
+        $player->attachListener($listener);
+        $player->emit('testEvent', ['testData' => 'dummy']);
     }
 }

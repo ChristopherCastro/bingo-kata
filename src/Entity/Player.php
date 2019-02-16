@@ -22,6 +22,13 @@ class Player implements PlayerInterface
     protected $card;
 
     /**
+     * List of listeners attached to this class.
+     *
+     * @var array[\Bingo\Event\ListenerInterface]
+     */
+    protected $listeners;
+
+    /**
      * {@inheritdoc}
      */
     public function getCard(): CardInterface
@@ -42,7 +49,16 @@ class Player implements PlayerInterface
      */
     public function emit(string $event, array $data = []): void
     {
-        // TODO: Implement emit() method.
+        foreach ($this->listeners as $listener) {
+            $implementedEvents = $listener->listeners();
+
+            if (isset($implementedEvents[$event]) &&
+                method_exists($listener, $implementedEvents[$event])
+            ) {
+                $method = $implementedEvents[$event];
+                $listener->{$method}($data);
+            }
+        }
     }
 
     /**
@@ -50,7 +66,8 @@ class Player implements PlayerInterface
      */
     public function attachListener(ListenerInterface $listener): void
     {
-        // TODO: Implement attachListener() method.
+        $id = spl_object_id($listener);
+        $this->listeners[$id] = $listener;
     }
 
     /**
