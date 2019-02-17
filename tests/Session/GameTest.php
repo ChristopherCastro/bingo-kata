@@ -44,4 +44,33 @@ class GameTest extends TestCase
 
         $this->assertTrue($game->check($card, $caller));
     }
+
+    /**
+     * ## Scenario:
+     *
+     * - Given a player calls Bingo before all numbers on their card have been called
+     * - When I check the card
+     * - Then the player is not the winner
+     */
+    public function testOnPlayerCallsBingoInvalidCard()
+    {
+        $card = $this->createMock(CardInterface::class);
+        $caller = $this->createMock(CallerInterface::class);
+
+        $game = new Game($caller);
+
+        $card->expects($this->atLeastOnce())
+            ->method('numbers')
+            ->will($this->returnValue([1, 2, 3, 4, 5, 6]));
+
+        $card->expects($this->atLeastOnce())
+            ->method('getMarkedNumbers')
+            ->will($this->returnValue([5, 6, 4]));
+
+        $caller->expects($this->atLeastOnce())
+            ->method('called')
+            ->will($this->returnValue([3, 4, 2, 5, 1, 6]));
+
+        $this->assertFalse($game->check($card, $caller));
+    }
 }
