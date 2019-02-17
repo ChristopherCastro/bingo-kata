@@ -47,7 +47,9 @@ class Game implements GameInterface
      */
     public function listeners(): array
     {
-        // TODO: Implement listeners() method.
+        return [
+            'Player.bingo' => 'onPlayerBingo',
+        ];
     }
 
     public function addPlayer(PlayerInterface $player): void
@@ -85,5 +87,22 @@ class Game implements GameInterface
         $validMarks = empty(array_diff($called, $cardMarks));
 
         return $cardIsFullyMarked && $validMarks;
+    }
+
+    /**
+     * Handles player's bingo call.
+     *
+     * Notifies every other player if given player is the winner of this session.
+     *
+     * @param \Bingo\Entity\PlayerInterface $player
+     * @param array $data
+     */
+    public function onPlayerBingo(PlayerInterface $player, array $data = []): void
+    {
+        $winner = $this->check($player->getCard(), $this->getCaller());
+
+        if ($winner) {
+            $this->emit('Game.winner', ['player' => $player]);
+        }
     }
 }
