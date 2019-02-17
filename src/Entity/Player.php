@@ -50,6 +50,7 @@ class Player implements PlayerInterface
     {
         return [
             'Game.call' => 'onGameCallNumber',
+            'Game.winner' => 'onGameWinner',
         ];
     }
 
@@ -99,6 +100,19 @@ class Player implements PlayerInterface
             $this->getCard()->isFullyMarked()
         ) {
             $this->emit('Player.bingo');
+        }
+    }
+
+    /**
+     * Triggered when games notifies the winner.
+     *
+     * @param \Bingo\Session\GameInterface $game
+     * @param \Bingo\Entity\PlayerInterface $player Winner
+     */
+    public function onGameWinner(GameInterface $game, PlayerInterface $player): void
+    {
+        if ($player === $this) {
+            // TODO: Im the winner
         }
     }
 }
