@@ -77,6 +77,13 @@ class Game implements GameInterface
      */
     public function check(CardInterface $card, CallerInterface $caller): bool
     {
-        // TODO: Implement check() method.
+        $cardNumbers = $card->numbers();
+        $cardMarks = $card->getMarkedNumbers();
+        $called = $caller->called();
+
+        $cardIsFullyMarked = empty(array_diff($cardNumbers, $cardMarks));
+        $validMarks = empty(array_diff($called, $cardMarks));
+
+        return $cardIsFullyMarked && $validMarks;
     }
 }
