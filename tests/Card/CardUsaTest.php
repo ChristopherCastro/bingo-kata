@@ -103,4 +103,41 @@ class CardUsaTest extends TestCase
 
         $this->assertEmpty($lines[$middleLine][$middleCell]);
     }
+
+    public function testNumbers()
+    {
+        $card = new CardUsa();
+        $numbers = $card->numbers();
+
+        $this->assertEquals(24, count($numbers));
+    }
+
+    /**
+     * @depends testNumbers
+     */
+    public function testMarkNumber()
+    {
+        $card = new CardUsa();
+        $numbers = $card->numbers();
+        $first = array_pop($numbers);
+        $expectedMarks = [$first];
+
+        $this->assertTrue($card->markNumber($first));
+        $this->assertEquals($expectedMarks, $card->getMarkedNumbers());
+    }
+
+    /**
+     * @depends testMarkNumber
+     */
+    public function testIsFullyMarked()
+    {
+        $card = new CardUsa();
+        $numbers = $card->numbers();
+
+        foreach ($numbers as $number) {
+            $card->markNumber($number);
+        }
+
+        $this->assertTrue($card->isFullyMarked());
+    }
 }
