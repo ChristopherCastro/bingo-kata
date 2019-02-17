@@ -12,6 +12,7 @@ namespace Bingo\Session;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\CallerInterface;
+use Bingo\Entity\PlayerInterface;
 use PHPUnit\Framework\TestCase;
 
 class GameTest extends TestCase
@@ -27,8 +28,7 @@ class GameTest extends TestCase
     {
         $card = $this->createMock(CardInterface::class);
         $caller = $this->createMock(CallerInterface::class);
-
-        $game = new Game($caller);
+        $player = $this->createMock(PlayerInterface::class);
 
         $card->expects($this->atLeastOnce())
             ->method('isFullyMarked')
@@ -43,7 +43,14 @@ class GameTest extends TestCase
             ->with($this->equalTo([5, 6, 4, 3, 1, 2]))
             ->will($this->returnValue(true));
 
-        $this->assertTrue($game->check($card, $caller));
+        $player->expects($this->atLeastOnce())
+            ->method('getCard')
+            ->will($this->returnValue($card));
+
+        $game = new Game($caller);
+        $game->onPlayerBingo($player);
+
+        $this->assertSame($player, $game->getWinner());
     }
 
     /**
@@ -57,13 +64,20 @@ class GameTest extends TestCase
     {
         $card = $this->createMock(CardInterface::class);
         $caller = $this->createMock(CallerInterface::class);
-
-        $game = new Game($caller);
+        $player = $this->createMock(PlayerInterface::class);
 
         $card->expects($this->atLeastOnce())
             ->method('isFullyMarked')
             ->will($this->returnValue(false));
 
-        $this->assertFalse($game->check($card, $caller));
+        $player->expects($this->atLeastOnce())
+            ->method('getCard')
+            ->will($this->returnValue($card));
+
+        $game = new Game($caller);
+        $game->addPlayer($player);
+        $game->onPlayerBingo($player);
+
+        $this->assertEmpty($game->getWinner());
     }
 }
