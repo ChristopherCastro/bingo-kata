@@ -53,11 +53,19 @@ class Caller implements CallerInterface
         return $number;
     }
 
-    /**∫
+    /**
      * {@inheritdoc}
      */
     public function called(): array
     {
         return $this->called;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateNumbers(array $numbers): bool
+    {
+        return empty(array_diff($numbers, $this->called()));
     }
 }

@@ -113,4 +113,19 @@ class CallerTest extends TestCase
 
         $this->assertEquals($called, $caller->called());
     }
+
+    public function testValidateNumbers()
+    {
+        $caller = new Caller();
+
+        $this->assertTrue(
+            $caller->validateNumbers([
+                $caller->call(),
+                $caller->call(),
+                $caller->call(),
+            ])
+        );
+
+        $this->assertFalse($caller->validateNumbers([100]));
+    }
 }

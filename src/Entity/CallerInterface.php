@@ -29,4 +29,12 @@ interface CallerInterface
      * @return array[int]
      */
     public function called(): array;
+
+    /**
+     * Whether provided list of numbers as been called.
+     *
+     * @param array[int] $numbers
+     * @return bool
+     */
+    public function validateNumbers(array $numbers): bool;
 }
