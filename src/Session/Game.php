@@ -137,9 +137,8 @@ class Game implements GameInterface
      * Notifies every other player if given player is the winner of this session.
      *
      * @param \Bingo\Entity\PlayerInterface $player
-     * @param array $data
      */
-    public function onPlayerBingo(PlayerInterface $player, array $data = []): void
+    public function onPlayerBingo(PlayerInterface $player): void
     {
         $winner = $this->check($player->getCard(), $this->getCaller());
 
