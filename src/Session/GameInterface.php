@@ -11,6 +11,7 @@ namespace Bingo\Session;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\CallerInterface;
+use Bingo\Entity\PlayerInterface;
 use Bingo\Event\EmitterInterface;
 use Bingo\Event\ListenerInterface;
 
@@ -19,6 +20,27 @@ use Bingo\Event\ListenerInterface;
  */
 interface GameInterface extends ListenerInterface, EmitterInterface
 {
+    /**
+     * Register a new participant.
+     *
+     * @param \Bingo\Entity\PlayerInterface $player
+     */
+    public function addPlayer(PlayerInterface $player): void;
+
+    /**
+     * Sets caller instance for this game session.
+     *
+     * @param \Bingo\Entity\CallerInterface $caller
+     */
+    public function setCaller(CallerInterface $caller): void;
+
+    /**
+     * Gets caller instance for this game session.
+     *
+     * @return \Bingo\Entity\CallerInterface
+     */
+    public function getCaller(): CallerInterface;
+
     /**
      * Whether ALL numbers in the given card were called by $caller.
      *

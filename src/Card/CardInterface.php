@@ -62,4 +62,20 @@ interface CardInterface
      * @return array[int]
      */
     public function numbers(): array;
+
+    /**
+     * Marks the given number in this card if exists.
+     *
+     * @param int $number Number to be marked
+     * @return bool True if number was marked, False if number was not
+     * found in this card and thus not marked
+     */
+    public function markNumber(int $number): bool;
+
+    /**
+     * Gets a list of marked numbers in this card.
+     *
+     * @return array[int]
+     */
+    public function getMarkedNumbers(): array;
 }
