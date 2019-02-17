@@ -133,6 +133,17 @@ class CardUsa implements CardInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function isFullyMarked(): bool
+    {
+        return empty(array_diff(
+            $this->numbers(),
+            $this->getMarkedNumbers()
+        ));
+    }
+
+    /**
      * Returns a randomly generated line.
      *
      * @param int $lowerBound Lowest possible random value
