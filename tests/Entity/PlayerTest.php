@@ -12,6 +12,7 @@ namespace Test\Entity;
 use Bingo\Card\CardInterface;
 use Bingo\Entity\Player;
 use Bingo\Event\ListenerInterface;
+use Bingo\Session\Game;
 use Bingo\Session\GameInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -38,5 +39,25 @@ class PlayerTest extends TestCase
             ->will($this->returnValue(['testEvent' => 'testEventHandler']));
 
         $player->emit('testEvent', ['testData' => 'dummy']);
+    }
+
+    /**
+     * Ensures that game receives event messages emitted from players.
+     */
+    public function testPlayerToGameCommunication()
+    {
+        $card = $this->createMock(CardInterface::class);
+        $game = $this->createMock(Game::class);
+
+        $game->expects($this->atLeastOnce())
+            ->method('listeners')
+            ->will($this->returnValue(['Player.bingo' => 'onPlayerBingo']));
+
+        $game->expects($this->atLeastOnce())
+            ->method('onPlayerBingo');
+
+        $player = new Player($card, $game);
+
+        $player->emit('Player.bingo', $player);
     }
 }

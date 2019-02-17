@@ -12,6 +12,7 @@ namespace Bingo\Session;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\CallerInterface;
+use Bingo\Entity\Player;
 use Bingo\Entity\PlayerInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -79,5 +80,27 @@ class GameTest extends TestCase
         $game->onPlayerBingo($player);
 
         $this->assertEmpty($game->getWinner());
+    }
+
+    /**
+     * Ensures that player receives event messages from the game.
+     */
+    public function testGameToPlayerCommunication()
+    {
+        $caller = $this->createMock(CallerInterface::class);
+        $player = $this->createMock(Player::class);
+
+
+        $player->expects($this->atLeastOnce())
+            ->method('listeners')
+            ->will($this->returnValue(['Game.winner' => 'onGameWinner']));
+
+        $player->expects($this->atLeastOnce())
+            ->method('onGameWinner');
+
+        $game = new Game($caller);
+        $game->addPlayer($player);
+
+        $game->emit('Game.winner', $player);
     }
 }
