@@ -13,7 +13,6 @@ use Bingo\Entity\Error\NoMoreNumbersException;
 
 class Caller implements CallerInterface
 {
-
     /**
      * Available numbers to call.
      *

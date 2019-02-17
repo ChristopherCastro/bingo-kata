@@ -32,6 +32,8 @@ interface ListenerInterface
      *  }
      * ```
      *
+     * Whenever `Order.placed` event is triggered the `onOrderPlaced` will be invoked.
+     *
      * @return array
      */
     public function listeners(): array;

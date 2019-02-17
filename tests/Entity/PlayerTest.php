@@ -11,7 +11,6 @@ namespace Test\Entity;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\Player;
-use Bingo\Event\ListenerInterface;
 use Bingo\Session\Game;
 use Bingo\Session\GameInterface;
 use PHPUnit\Framework\TestCase;

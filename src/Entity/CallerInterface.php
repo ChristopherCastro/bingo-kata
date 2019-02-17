@@ -9,8 +9,6 @@
  */
 namespace Bingo\Entity;
 
-use Bingo\Entity\Error\NoMoreNumbersException;
-
 /**
  * Represents a bingo caller.
  */
@@ -19,7 +17,7 @@ interface CallerInterface
     /**
      * Calls a randomly selected ball number.
      *
-     * @throws \Bingo\Entity\Error\NoMoreNumbersException
+     * @throws \Bingo\Entity\Error\NoMoreNumbersException When no more numbers are available
      */
     public function call(): int;
 

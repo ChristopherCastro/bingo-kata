@@ -51,7 +51,9 @@ class Game implements GameInterface
     }
 
     /**
-     * Starts playing.
+     * Utility method for start simulating a game.
+     *
+     * Calls numbers until there is a winner or no more numbers are available.
      */
     public function play()
     {
@@ -82,6 +84,9 @@ class Game implements GameInterface
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addPlayer(PlayerInterface $player): void
     {
         $id = spl_object_id($player);

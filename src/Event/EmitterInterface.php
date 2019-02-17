@@ -17,6 +17,28 @@ interface EmitterInterface
     /**
      * Emits the given event to every attached listener subscribed to this event.
      *
+     * Listener methods will receive:
+     *
+     * - Subject/context as first argument; an instance of `\Bingo\Event\EmitterInterface`
+     * - Any additional argument passed to `emit()` will be directly mapped to listener method
+     *
+     * ### Example:
+     *
+     * Within an object named `Order` implementing `EmitterInterface`,
+     *
+     * ```php
+     * $this->>emit('Order.completed', $user, time());
+     * ```
+     *
+     * Listener methods to handle this event should look as follow:
+     *
+     * ```php
+     * public function onOrderCompleted(ListenerInterface $order, $user, $when): void
+     * {
+     *     // do something
+     * }
+     * ```
+     *
      * @param string $event Event to dispatch
      * @param mixed ...$data Any value you wish to be transported with this event to listener callable
      */
