@@ -42,6 +42,20 @@ interface GameInterface extends ListenerInterface, EmitterInterface
     public function getCaller(): CallerInterface;
 
     /**
+     * Gets session winner if exists.
+     *
+     * @return \Bingo\Entity\PlayerInterface|null
+     */
+    public function getWinner(): ?PlayerInterface;
+
+    /**
+     * Sets winner player for this game session.
+     *
+     * @param \Bingo\Entity\PlayerInterface $player
+     */
+    public function setWinner(PlayerInterface $player): void;
+
+    /**
      * Whether ALL numbers in the given card were called by $caller.
      *
      * @param \Bingo\Card\CardInterface $card The card to check

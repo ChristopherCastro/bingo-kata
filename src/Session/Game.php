@@ -11,6 +11,7 @@ namespace Bingo\Session;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\CallerInterface;
+use Bingo\Entity\Error\NoMoreNumbersException;
 use Bingo\Entity\PlayerInterface;
 use Bingo\Event\EmitterAwareTrait;
 
@@ -31,6 +32,13 @@ class Game implements GameInterface
      * @var \Bingo\Entity\PlayerInterface
      */
     protected $players = [];
+
+    /**
+     * Winner of this game session.
+     *
+     * @var \Bingo\Entity\PlayerInterface|null
+     */
+    protected $winner = null;
 
     /**
      * Game constructor.
@@ -79,6 +87,22 @@ class Game implements GameInterface
     /**
      * {@inheritdoc}
      */
+    public function getWinner(): ?PlayerInterface
+    {
+        return $this->winner;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setWinner(PlayerInterface $player): void
+    {
+        $this->winner = $player;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function check(CardInterface $card, CallerInterface $caller): bool
     {
         return $card->isFullyMarked() &&
@@ -98,7 +122,9 @@ class Game implements GameInterface
         $winner = $this->check($player->getCard(), $this->getCaller());
 
         if ($winner) {
-            $this->emit('Game.winner', ['player' => $player]);
+            $this->setWinner($player);
+            $player->setWinner(true);
+            $this->emit('Game.winner', $player);
         }
     }
 }
