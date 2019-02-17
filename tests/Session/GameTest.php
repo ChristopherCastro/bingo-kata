@@ -31,16 +31,17 @@ class GameTest extends TestCase
         $game = new Game($caller);
 
         $card->expects($this->atLeastOnce())
-            ->method('numbers')
-            ->will($this->returnValue([1, 2, 3, 4, 5, 6]));
+            ->method('isFullyMarked')
+            ->will($this->returnValue(true));
 
         $card->expects($this->atLeastOnce())
             ->method('getMarkedNumbers')
             ->will($this->returnValue([5, 6, 4, 3, 1, 2]));
 
         $caller->expects($this->atLeastOnce())
-            ->method('called')
-            ->will($this->returnValue([3, 4, 2, 5, 1, 6]));
+            ->method('validateNumbers')
+            ->with($this->equalTo([5, 6, 4, 3, 1, 2]))
+            ->will($this->returnValue(true));
 
         $this->assertTrue($game->check($card, $caller));
     }
@@ -60,16 +61,8 @@ class GameTest extends TestCase
         $game = new Game($caller);
 
         $card->expects($this->atLeastOnce())
-            ->method('numbers')
-            ->will($this->returnValue([1, 2, 3, 4, 5, 6]));
-
-        $card->expects($this->atLeastOnce())
-            ->method('getMarkedNumbers')
-            ->will($this->returnValue([5, 6, 4]));
-
-        $caller->expects($this->atLeastOnce())
-            ->method('called')
-            ->will($this->returnValue([3, 4, 2, 5, 1, 6]));
+            ->method('isFullyMarked')
+            ->will($this->returnValue(false));
 
         $this->assertFalse($game->check($card, $caller));
     }
