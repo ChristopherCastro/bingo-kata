@@ -78,4 +78,11 @@ interface CardInterface
      * @return array[int]
      */
     public function getMarkedNumbers(): array;
+
+    /**
+     * Whether this card has been fully marked.
+     *
+     * @return bool
+     */
+    public function isFullyMarked(): bool;
 }
