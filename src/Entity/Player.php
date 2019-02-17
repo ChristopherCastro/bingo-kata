@@ -25,6 +25,13 @@ class Player implements PlayerInterface
     protected $card;
 
     /**
+     * Whether this player is the winner.
+     *
+     * @var bool
+     */
+    protected $winner = false;
+
+    /**
      * Player constructor.
      *
      * @param \Bingo\Card\CardInterface $card
@@ -60,6 +67,22 @@ class Player implements PlayerInterface
     public function setCard(CardInterface $card): void
     {
         $this->card = $card;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isWinner(): bool
+    {
+        return $this->winner;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setWinner(bool $winner): void
+    {
+        $this->winner = $winner;
     }
 
     /**
