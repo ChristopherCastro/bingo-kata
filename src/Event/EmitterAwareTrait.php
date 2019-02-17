@@ -31,7 +31,7 @@ trait EmitterAwareTrait
      */
     public function emit(string $event, ...$data): void
     {
-        foreach ($this->listeners as $listener) {
+        foreach ($this->attachedListeners() as $listener) {
             $implementedEvents = $listener->implementedEvents();
 
             if (isset($implementedEvents[$event]) &&
@@ -52,5 +52,13 @@ trait EmitterAwareTrait
     {
         $id = spl_object_id($listener);
         $this->listeners[$id] = $listener;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attachedListeners(): array
+    {
+        return $this->listeners;
     }
 }

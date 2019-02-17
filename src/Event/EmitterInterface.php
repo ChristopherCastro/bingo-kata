@@ -50,4 +50,11 @@ interface EmitterInterface
      * @param \Bingo\Event\ListenerInterface $listener
      */
     public function attachListener(ListenerInterface $listener): void;
+
+    /**
+     * Retrieves a list of attached listeners to this emitter.
+     *
+     * @return array[\Bingo\Event\ListenerInterface]
+     */
+    public function attachedListeners(): array;
 }
