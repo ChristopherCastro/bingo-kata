@@ -19,7 +19,7 @@ trait EmitterAwareTrait
      *
      * @var array[\Bingo\Event\ListenerInterface]
      */
-    protected $listeners;
+    protected $listeners = [];
 
     /**
      * {@inheritdoc}
