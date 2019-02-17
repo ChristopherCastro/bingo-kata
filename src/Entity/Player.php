@@ -91,16 +91,14 @@ class Player implements PlayerInterface
      * After marking, if player's card is fully marked a "bingo" event will be triggered.
      *
      * @param \Bingo\Session\GameInterface $game
-     * @param array $data
+     * @param int $number Called number
      */
-    public function onGameCallNumber(GameInterface $game, array $data = []): void
+    public function onGameCallNumber(GameInterface $game, int $number): void
     {
-        if (isset($data['number'])) {
-            if ($this->getCard()->markNumber($data['number']) &&
-                $this->getCard()->isFullyMarked()
-            ) {
-                $this->emit('Player.bingo');
-            }
+        if ($this->getCard()->markNumber($number) &&
+            $this->getCard()->isFullyMarked()
+        ) {
+            $this->emit('Player.bingo');
         }
     }
 }
