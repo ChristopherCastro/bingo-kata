@@ -23,6 +23,11 @@ trait EmitterAwareTrait
 
     /**
      * {@inheritdoc}
+     *
+     * Callable functions will receive two arguments:
+     *
+     * - subject object (emitter) as first argument
+     * - array of additional data being send by the subject, it may be empty
      */
     public function emit(string $event, array $data = []): void
     {
@@ -33,7 +38,7 @@ trait EmitterAwareTrait
                 method_exists($listener, $implementedEvents[$event])
             ) {
                 $method = $implementedEvents[$event];
-                $listener->{$method}($data);
+                $listener->{$method}($this, $data);
             }
         }
     }
