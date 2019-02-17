@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 7.2
+
+before_script:
+  - COMPOSER_ROOT_VERSION=dev-master
+  - composer self-update
+  - composer install --prefer-dist --no-interaction
+
+script:
+  - sh -c "if [ '$PHPCS' != '1' ]; then vendor/bin/phpunit; fi"
+
+notifications:
+  email: false
