@@ -56,6 +56,8 @@ class Game implements GameInterface
     {
         $id = spl_object_id($player);
         $this->players[$id] = $player;
+
+        $this->attachListener($this->players[$id]);
     }
 
     /**
