@@ -51,6 +51,28 @@ class Game implements GameInterface
     }
 
     /**
+     * Starts playing.
+     */
+    public function play()
+    {
+        $round = 0;
+        while (!$this->getWinner()) {
+            $round++;
+            $number = null;
+
+            try {
+                $number = $this->getCaller()->call();
+                $this->emit('Game.call', $number);
+            } catch (NoMoreNumbersException $ex) {
+                // no more numbers and no winner
+                break;
+            }
+
+            yield [$round, $number];
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function listeners(): array
