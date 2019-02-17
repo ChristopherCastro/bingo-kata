@@ -144,7 +144,7 @@ class CardUsa implements CardInterface
     }
 
     /**
-     * Returns a randomly generated line.
+     * Returns a randomly generated line of length `static::$lineLength`.
      *
      * @param int $lowerBound Lowest possible random value
      * @param int $upperBound Highest possible random value
