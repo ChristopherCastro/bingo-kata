@@ -33,6 +33,16 @@ class Game implements GameInterface
     protected $players = [];
 
     /**
+     * Game constructor.
+     *
+     * @param \Bingo\Entity\CallerInterface $caller
+     */
+    public function __construct(CallerInterface $caller)
+    {
+        $this->setCaller($caller);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function listeners(): array
