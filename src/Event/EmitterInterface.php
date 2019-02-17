@@ -18,9 +18,9 @@ interface EmitterInterface
      * Emits the given event to every attached listener subscribed to this event.
      *
      * @param string $event Event to dispatch
-     * @param array $data Any value you wish to be transported with this event to listener callable
+     * @param mixed ...$data Any value you wish to be transported with this event to listener callable
      */
-    public function emit(string $event, array $data = []): void;
+    public function emit(string $event, ...$data): void;
 
     /**
      * Registers a new listener object.

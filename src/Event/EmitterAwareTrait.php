@@ -29,7 +29,7 @@ trait EmitterAwareTrait
      * - subject object (emitter) as first argument
      * - array of additional data being send by the subject, it may be empty
      */
-    public function emit(string $event, array $data = []): void
+    public function emit(string $event, ...$data): void
     {
         foreach ($this->listeners as $listener) {
             $implementedEvents = $listener->listeners();
@@ -37,8 +37,10 @@ trait EmitterAwareTrait
             if (isset($implementedEvents[$event]) &&
                 method_exists($listener, $implementedEvents[$event])
             ) {
-                $method = $implementedEvents[$event];
-                $listener->{$method}($this, $data);
+                $arguments = [$this];
+                $arguments = array_merge($arguments , $data);
+
+                call_user_func_array([$listener, $implementedEvents[$event]], $arguments);
             }
         }
     }
