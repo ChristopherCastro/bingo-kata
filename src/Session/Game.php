@@ -11,12 +11,26 @@ namespace Bingo\Session;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\CallerInterface;
+use Bingo\Entity\PlayerInterface;
 use Bingo\Event\EmitterAwareTrait;
-use Bingo\Event\ListenerInterface;
 
 class Game implements GameInterface
 {
     use EmitterAwareTrait;
+
+    /**
+     * Caller instance for this session.
+     *
+     * @var \Bingo\Entity\CallerInterface
+     */
+    protected $caller;
+
+    /**
+     * List of participants.
+     *
+     * @var \Bingo\Entity\PlayerInterface
+     */
+    protected $players = [];
 
     /**
      * {@inheritdoc}
@@ -24,6 +38,28 @@ class Game implements GameInterface
     public function listeners(): array
     {
         // TODO: Implement listeners() method.
+    }
+
+    public function addPlayer(PlayerInterface $player): void
+    {
+        $id = spl_object_id($player);
+        $this->players[$id] = $player;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCaller(): CallerInterface
+    {
+        return $this->caller;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCaller(CallerInterface $caller): void
+    {
+        $this->caller = $caller;
     }
 
     /**
