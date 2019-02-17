@@ -11,24 +11,19 @@ namespace Bingo\Session;
 
 use Bingo\Card\CardInterface;
 use Bingo\Entity\CallerInterface;
+use Bingo\Event\EmitterAwareTrait;
 use Bingo\Event\ListenerInterface;
 
 class Game implements GameInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function emit(string $event, array $data = []): void
-    {
-        // TODO: Implement emit() method.
-    }
+    use EmitterAwareTrait;
 
     /**
      * {@inheritdoc}
      */
-    public function attachListener(ListenerInterface $listener): void
+    public function listeners(): array
     {
-        // TODO: Implement attachListener() method.
+        // TODO: Implement listeners() method.
     }
 
     /**
@@ -37,13 +32,5 @@ class Game implements GameInterface
     public function check(CardInterface $card, CallerInterface $caller): bool
     {
         // TODO: Implement check() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function listeners(): array
-    {
-        // TODO: Implement listeners() method.
     }
 }
