@@ -12,28 +12,31 @@ namespace Test\Entity;
 use Bingo\Card\CardInterface;
 use Bingo\Entity\Player;
 use Bingo\Event\ListenerInterface;
+use Bingo\Session\GameInterface;
 use PHPUnit\Framework\TestCase;
 
 class PlayerTest extends TestCase
 {
     public function testCard()
     {
-        $player = new Player();
         $card = $this->createMock(CardInterface::class);
-        $player->setCard($card);
+        $game = $this->createMock(GameInterface::class);
+        $player = new Player($card, $game);
 
         $this->assertSame($card, $player->getCard());
     }
 
     public function testEmit()
     {
-        $player = new Player();
-        $listener = $this->createMock(ListenerInterface::class);
-        $listener->expects($this->atLeastOnce())
+        $card = $this->createMock(CardInterface::class);
+        $game = $this->createMock(GameInterface::class);
+
+        $player = new Player($card, $game);
+
+        $game->expects($this->atLeastOnce())
             ->method('listeners')
             ->will($this->returnValue(['testEvent' => 'testEventHandler']));
 
-        $player->attachListener($listener);
         $player->emit('testEvent', ['testData' => 'dummy']);
     }
 }

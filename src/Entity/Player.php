@@ -25,6 +25,18 @@ class Player implements PlayerInterface
     protected $card;
 
     /**
+     * Player constructor.
+     *
+     * @param \Bingo\Card\CardInterface $card
+     * @param \Bingo\Session\GameInterface $game Game context
+     */
+    public function __construct(CardInterface $card, GameInterface $game)
+    {
+        $this->setCard($card);
+        $this->attachListener($game);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function listeners(): array
