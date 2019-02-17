@@ -11,6 +11,7 @@ namespace Bingo\Entity;
 
 use Bingo\Card\CardInterface;
 use Bingo\Event\EmitterAwareTrait;
+use Bingo\Session\GameInterface;
 
 class Player implements PlayerInterface
 {
@@ -22,6 +23,16 @@ class Player implements PlayerInterface
      * @var \Bingo\Card\CardInterface
      */
     protected $card;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function listeners(): array
+    {
+        return [
+            'Game.call' => 'onGameCallNumber',
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -40,12 +51,21 @@ class Player implements PlayerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Triggered every time game calls a number.
+     *
+     * After marking, if player's card is fully marked a "bingo" event will be triggered.
+     *
+     * @param \Bingo\Session\GameInterface $game
+     * @param array $data
      */
-    public function listeners(): array
+    public function onGameCallNumber(GameInterface $game, array $data = []): void
     {
-        return [
-            'Game.call',
-        ];
+        if (isset($data['number'])) {
+            if ($this->getCard()->markNumber($data['number']) &&
+                $this->getCard()->isFullyMarked()
+            ) {
+                $this->emit('Player.bingo');
+            }
+        }
     }
 }
