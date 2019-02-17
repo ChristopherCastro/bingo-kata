@@ -31,4 +31,18 @@ interface PlayerInterface extends ListenerInterface, EmitterInterface
      * @param \Bingo\Card\CardInterface $card
      */
     public function setCard(CardInterface $card): void;
+
+    /**
+     * Whether this player is a winner.
+     *
+     * @return bool
+     */
+    public function isWinner(): bool;
+
+    /**
+     * Sets winning flag.
+     *
+     * @param bool $winner
+     */
+    public function setWinner(bool $winner): void;
 }
