@@ -32,7 +32,7 @@ trait EmitterAwareTrait
     public function emit(string $event, ...$data): void
     {
         foreach ($this->listeners as $listener) {
-            $implementedEvents = $listener->listeners();
+            $implementedEvents = $listener->implementedEvents();
 
             if (isset($implementedEvents[$event]) &&
                 method_exists($listener, $implementedEvents[$event])

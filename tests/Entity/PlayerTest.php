@@ -34,7 +34,7 @@ class PlayerTest extends TestCase
         $player = new Player($card, $game);
 
         $game->expects($this->atLeastOnce())
-            ->method('listeners')
+            ->method('implementedEvents')
             ->will($this->returnValue(['testEvent' => 'testEventHandler']));
 
         $player->emit('testEvent', ['testData' => 'dummy']);
@@ -49,7 +49,7 @@ class PlayerTest extends TestCase
         $game = $this->createMock(Game::class);
 
         $game->expects($this->atLeastOnce())
-            ->method('listeners')
+            ->method('implementedEvents')
             ->will($this->returnValue(['Player.bingo' => 'onPlayerBingo']));
 
         $game->expects($this->atLeastOnce())

@@ -91,7 +91,7 @@ class GameTest extends TestCase
 
 
         $player->expects($this->atLeastOnce())
-            ->method('listeners')
+            ->method('implementedEvents')
             ->will($this->returnValue(['Game.winner' => 'onGameWinner']));
 
         $player->expects($this->atLeastOnce())

@@ -77,7 +77,7 @@ class Game implements GameInterface
     /**
      * {@inheritdoc}
      */
-    public function listeners(): array
+    public function implementedEvents(): array
     {
         return [
             'Player.bingo' => 'onPlayerBingo',

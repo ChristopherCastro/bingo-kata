@@ -46,7 +46,7 @@ class Player implements PlayerInterface
     /**
      * {@inheritdoc}
      */
-    public function listeners(): array
+    public function implementedEvents(): array
     {
         return [
             'Game.call' => 'onGameCallNumber',

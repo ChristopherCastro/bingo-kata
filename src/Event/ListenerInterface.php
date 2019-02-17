@@ -12,7 +12,7 @@ namespace Bingo\Event;
 /**
  * Objects implementing this interface can listen for events.
  *
- * The `listeners` method is used to notify the emitters what methods should
+ * The `implementedEvents` method is used to notify the emitters what methods should
  * be called when an event is triggered.
  */
 interface ListenerInterface
@@ -36,5 +36,5 @@ interface ListenerInterface
      *
      * @return array
      */
-    public function listeners(): array;
+    public function implementedEvents(): array;
 }
