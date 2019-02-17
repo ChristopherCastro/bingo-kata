@@ -23,6 +23,20 @@ class CardUsa implements CardInterface
     protected $lines = [];
 
     /**
+     * Holds a plain list of every number in this card.
+     *
+     * @var array[int]
+     */
+    protected $numbers = [];
+
+    /**
+     * List of marked numbers until now.
+     *
+     * @var array[int]
+     */
+    protected $marked = [];
+
+    /**
      * Cells per line.
      *
      * @var int
@@ -78,6 +92,44 @@ class CardUsa implements CardInterface
     public function setLine($index, array $values = []): void
     {
         $this->lines[$index] = $values;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function numbers(): array
+    {
+        if (empty($this->numbers)) {
+            foreach ($this->getLines() as $index => $cells) {
+                $this->numbers = array_merge($this->numbers, $cells);
+            }
+
+            $this->numbers = array_filter($this->numbers);
+        }
+
+        return $this->numbers;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function markNumber(int $number): bool
+    {
+        if (in_array($number, $this->numbers())) {
+            $this->marked[] = $number;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMarkedNumbers(): array
+    {
+        return $this->marked;
     }
 
     /**
