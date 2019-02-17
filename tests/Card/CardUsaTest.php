@@ -93,7 +93,7 @@ class CardUsaTest extends TestCase
         foreach ($lines as $lineIndex => $cells) {
             foreach ($cells as $cellIndex => $cell) {
                 if ($cell === null &&
-                    $lineIndex !== $middleCell &&
+                    $lineIndex !== $middleLine &&
                     $cellIndex !== $middleCell
                 ) {
                     $this->fail(sprintf('Cell [%s, %d] is not allowed to be empty', $lineIndex, $cellIndex));
